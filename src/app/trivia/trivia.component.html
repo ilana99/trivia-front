@@ -1,0 +1,50 @@
+<div class="trivia">
+    @if (allQuestions.length === 0 && authService.isLoggedIn() === true) {
+    <button (click)="startGame()">Start</button>
+    }
+    @switch (gameStatus) {
+    @case ("playing") {
+    <div>
+        @if (allQuestions.length != 0) {
+        <h2 class="questionNumber">{{currentQuestionIndex + 1}}/{{allQuestions.length}}</h2>
+        }
+        <h2 class="question">{{currentQuestionText}}</h2>
+        <div class="answers">
+            @for (answer of currentAnswers; track answer.id) {
+            <button (click)="sendAnswer(currentQuestion.id, answer.id)" [disabled]="answerSent" class="answer">
+                {{answer.answer}}</button>
+            }
+        </div>
+        @if (answerSent === true && responseStatus === false ) {
+        <h2 class="wrong">Wrong Answer :(</h2>
+        } @else if (answerSent === true && responseStatus === true) {
+        <h2 class="correct">Good answer!</h2>
+        }
+
+        @if (allQuestions.length != 0 && currentQuestionIndex != allQuestions.length - 1) {
+        <button (click)="nextQuestion()" [disabled]="!answerSent">Next</button>
+        }
+    </div>
+    }
+    @case ("finished") {
+    <div class="score">
+        <h2>Score: {{score}}/{{allQuestions.length}}</h2>
+        @for (question of resultsParsed; track question.id) {
+        <h2 class="question">{{question.question}}</h2>
+        <div class="answers">
+            @for (answer of question.answers; track answer.id) {
+            <button [class.wrong]="answer.id === question.userAnswer && answer.id != question.correctAnswer"
+                [class.correct]="answer.id === question.correctAnswer" class="resultAnswer"> {{answer.answer}}</button>
+            }
+        </div>
+        }
+    </div>
+    }
+    }
+    @if (currentQuestionIndex === allQuestions.length - 1) {
+    @if (gameStatus != "finished") {
+    <button (click)="sendScore(); seeResults()" [disabled]="!answerSent">See results</button>
+    }
+    <button (click)="clear(); startGame()">Start again</button>
+    }
+</div>

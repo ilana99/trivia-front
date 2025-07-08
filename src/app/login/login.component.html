@@ -1,0 +1,20 @@
+<div class="form-group">
+    @if (authService.isLoggedIn() === false) {
+    <form (ngSubmit)="login()">
+        <h2>Login</h2>
+        <label for="username"></label>
+        <input type="text" name="username" [(ngModel)]="username">
+        <label for="password"></label>
+        <input type="password" name="password" [(ngModel)]="password">
+        <button type="submit">Login</button>
+    </form>
+    @if (loginStatus === false) {
+    <p>Login failed.</p>
+    }
+    }
+    @if (authService.isLoggedIn() === true) {
+    <h2>Welcome, {{username}}!</h2>
+    <button (click)="logout()">Logout</button>
+    }
+
+</div>

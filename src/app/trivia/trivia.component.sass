@@ -1,0 +1,46 @@
+.trivia
+    text-align: center
+    font-family: sans-serif
+
+button
+    padding: 10px
+    border-radius: 10px
+    margin: 10px
+    border: 1px solid black
+    background-color: white
+    &:hover
+        background-color: lightgray
+        &:disabled
+            background-color: white
+.question
+    font-size: 20px
+    margin-bottom: 20px
+
+.answers
+    display: flex
+    flex-direction: column
+    gap: 10px
+    button
+        width: 30%
+        margin: auto
+
+.wrong
+    background: red
+
+.correct
+    background: green
+
+.normal
+    color: black
+
+.resultAnswer
+    &:hover
+        background-color: white
+
+.score
+    .correct
+        &:hover
+            background-color: green
+    .wrong
+        &:hover
+            background-color: red

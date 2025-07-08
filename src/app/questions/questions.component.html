@@ -1,0 +1,17 @@
+<!-- <div>
+@if (allQuestions.length != 0) {
+    <h2>Question {{currentQuestionIndex + 1}}/{{allQuestions.length}}</h2>
+}
+<h2>{{currentQuestionText}}</h2>
+        <ul>
+            @for (answer of currentAnswers; track answer.id) {
+                <button (click)="sendAnswer(currentQuestion.id, answer.id)"> <li>{{answer.answer}}</li></button>
+               
+            }
+        </ul>
+        @if (answerSent === true && responseStatus === false ) {
+            <h2>Wrong Answer</h2>
+        } @else if (answerSent === true && responseStatus === true) {
+            <h2>Good answer!</h2>
+    }
+</div> -->
