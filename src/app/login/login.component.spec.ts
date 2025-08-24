@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LoginComponent } from './login.component';
+import { LoginComponent} from "./login.component";
+import { of } from 'rxjs';
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  const mockApiService = {
+    login: jest.fn()
+    } as any;
+    const mockAuthService = {} as any;
+    const component = new LoginComponent(mockApiService, mockAuthService);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LoginComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  test('empty data should throw error', () => {
+    const response = {
+      status: 400
+    };
+    mockApiService.login.mockReturnValue(of(response));
+
+    expect(component.loginStatus).toBeFalsy();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  
+
 });

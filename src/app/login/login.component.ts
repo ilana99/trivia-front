@@ -23,18 +23,22 @@ export class LoginComponent {
     username: this.username, 
     password: this.password
    }
+
    this.apiService.login(data).subscribe({
     next: (response) => {
        if (response.status === 200) {
         this.authService.login();
         this.loginStatus = true;
+    }  else {
+        this.loginStatus = false;
     }
    },
     error: (error) => {
         this.loginStatus = false;
-        console.log('Login failed: Forbidden');
+        console.log(error);
     }
    })
+
 }
 
 

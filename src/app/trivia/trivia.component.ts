@@ -62,6 +62,7 @@ export class TriviaComponent {
 
     this.apiService.validate(questionId, answerId).subscribe({
       next: (response) => {
+       
         if (response.data.status === true) {
           this.responseStatus = true;
           this.score++;
@@ -69,20 +70,17 @@ export class TriviaComponent {
           this.responseStatus = false;
         }
 
-        var correctAnswerId = response.data.correctAnswerId; 
+        const correctAnswerId = response.data.correctAnswerId; 
         this.answerSent = true;
         this.storedQuestions = JSON.parse(localStorage.getItem('questions') || '[]');
-
     
-        if (this.storedQuestions)  {
-          const questionWithUserAnswer = {
+        const questionWithUserAnswer = {
             ...this.currentQuestion, 
             userAnswer: answerId,
             correctAnswer: correctAnswerId
-          }
-          this.storedQuestions.push(questionWithUserAnswer);
-          localStorage.setItem('questions', JSON.stringify(this.storedQuestions));
-        } 
+        }
+        this.storedQuestions.push(questionWithUserAnswer);
+        localStorage.setItem('questions', JSON.stringify(this.storedQuestions));
        
       },
     error: (error) => {
@@ -93,8 +91,7 @@ export class TriviaComponent {
   sendScore() {
    const date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
    if (date) {
-    this.apiService.sendScore(2, date, this.score, this.allQuestions.length).subscribe((response) => {
-    })
+    this.apiService.sendScore(2, date, this.score, this.allQuestions.length)
    }
    this.gameStatus = 'finished';
   }

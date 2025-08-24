@@ -115,22 +115,54 @@ test('should change responseStatus and score', () => {
     expect(component.score).toBe(1);
 });
 
-test('should return the', () => {
-    const storedQuestions = [{"id": 1, "question": "Test Question"}, {"id": 2, "question": "Test Question"}];
 
-    component.sendAnswer(1, 1);
-
-})
-
-test('should throw error', () => {
+test('local storage should have the data', () => {
     const data = {"status": true, "correctAnswerId": 1}; 
     const response = {data: data}
     mockApiService.validate.mockReturnValue(of(response));
 
-    component.storedQuestions = [];
-    // localStorage.setItem('questions', '[]');
+    component.allQuestions = [{
+        "answers": [
+            {
+                "id": 1,
+                "answer": "Spike"
+            }, 
+            {
+                "id": 2,
+                "answer": "Felix"
+            },
+            {
+                "id": 3,
+                "answer": "Floof"
+            }
+        ],
+        "id": 1,
+        "question": "What is the name of Nix's dog?"
+    }];
 
-    expect(() => component.sendAnswer(1, 1)).toThrow();
+    component.sendAnswer(1, 1);
+
+    const stored = JSON.parse(localStorage.getItem('questions') || '[]');
+    expect(stored[0]).toMatchObject({
+     "answers": [
+            {
+                "id": 1,
+                "answer": "Spike"
+            }, 
+            {
+                "id": 2,
+                "answer": "Felix"
+            },
+            {
+                "id": 3,
+                "answer": "Floof"
+            }
+        ],
+        correctAnswer: 1,
+        id: 1,
+        question: "What is the name of Nix's dog?",
+        userAnswer: 1
+    });
 
 })
 
