@@ -6,11 +6,10 @@ import { formatDate } from '@angular/common';
 
 
 @Component({
-  selector: 'app-trivia',
-  standalone: true,
-  imports: [],
-  templateUrl: './trivia.component.html',
-  styleUrl: './trivia.component.sass'
+    selector: 'app-trivia',
+    imports: [],
+    templateUrl: './trivia.component.html',
+    styleUrl: './trivia.component.sass'
 })
 export class TriviaComponent {
 
